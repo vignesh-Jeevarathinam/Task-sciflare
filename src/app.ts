@@ -1,6 +1,8 @@
-import express, { Express, Request, Response, Application } from "express";
+import express, { Express, Response, Application, json } from "express";
 import dotenv from "dotenv";
 import { createServer } from "node:http";
+import cors from "cors";
+import apiRoutes from "./api";
 
 //For env File
 dotenv.config();
@@ -13,8 +15,12 @@ function startServer() {
   // app.get('/', (req: Request, res: Response) => {
   //   res.send('Welcome to Express & TypeScript Server');
   // });
+  app.use(cors());
+  app.use(json())
 
-  const server = httpServer
+  app.use('/api', apiRoutes());
+
+   httpServer
     .listen(port, () => {
       console.log(`Server is started at http://localhost:${port}`);
     })

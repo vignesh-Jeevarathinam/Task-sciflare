@@ -2,7 +2,6 @@ import { Router } from "express";
 
 const adminRoutes = Router()
 
-adminRoutes.post('/login');
-adminRoutes.post('/signUp');
+adminRoutes.post('/list');
 
 export default adminRoutes;
