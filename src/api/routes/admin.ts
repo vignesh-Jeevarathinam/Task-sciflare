@@ -1,10 +1,10 @@
 import { Router } from "express";
+import { deleteUser, getUserList, updateUser } from "../../controllers/admin";
 
-const adminRoutes = Router()
+const adminRoutes = Router();
 
-adminRoutes.post('/list');
-adminRoutes.post('/update');
-adminRoutes.post('/delete');
-
+adminRoutes.get("/list", getUserList);
+adminRoutes.put("/update", updateUser);
+adminRoutes.delete("/delete/:user_id", deleteUser);
 
 export default adminRoutes;

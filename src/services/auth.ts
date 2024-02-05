@@ -17,36 +17,22 @@ export const prepareSignup = async (
       // employee_Id: faker.datatype.number({min:1, max: 200}),
       email: email,
       username: userName,
-      password: bcrypt.hashSync(password,10),
+      password: bcrypt.hashSync(password, 10),
       role: role,
-      phone_number: phone_number
-    })
+      phone_number: phone_number,
+    });
 
-   const user_Data= await user.save();
+    const user_Data = await user.save();
 
-console.log("user data",password, bcrypt.hashSync( password,10 ),user_Data);
+    console.log(
+      "user data",
+      password,
+      bcrypt.hashSync(password, 10),
+      user_Data
+    );
 
     return { status: true, message: "user added successfully" };
   } catch (error) {
-    console.log("ERROR in prepareSignup", error.message);
+    console.log("ERROR in prepareSignup", error);
   }
 };
-
-export const prepareLogin = (userName: string, password: string) => {
-  console.log("services prepareLogin");
-
-  // const [result] = user_details.map((ele, i) => {
-  //   if (
-  //     user_details.some(
-  //       (item) => item.userName === userName && item.password === password
-  //     )
-  //   ) {
-  //     return { status: true, message: "valid" };
-  //   } else {
-  //     return { status: false, message: "INvalid" };
-  //   }
-  // });
-
-  // return result;
-};
-

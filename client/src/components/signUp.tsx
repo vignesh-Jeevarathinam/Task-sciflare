@@ -1,5 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface FormData {
     username: string;
@@ -11,6 +14,9 @@ interface FormData {
 }
 
 const Signup: React.FC = () => {
+    const URL = "http://localhost:8000/api";
+    const navigate = useNavigate()
+
     const [formData, setFormData] = useState<FormData>({
         username: '',
         email: '',
@@ -27,7 +33,23 @@ const Signup: React.FC = () => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
+        const headers = {
+            Authorization: "Bearer sciflare",
+            "Content-Type": "application/json",
+        };
+
+        axios.post(`${URL}/auth/signup`, formData, { headers })
+            .then((response) => {
+                console.log("ree", response);
+
+                toast(`${response.data.message}`, {
+                    type: "success",
+                });
+                navigate("/");
+            })
+            .catch((error) => {
+                toast(`${error.message}`, { type: "error" });
+            });
     };
 
     return (
@@ -37,7 +59,7 @@ const Signup: React.FC = () => {
 
                 <div className=" p-3">
                     <label htmlFor="username" className="block text-gray-600">Username</label>
-                    <input type="text" placeholder='Enter your Name' name="username" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange} required />
+                    <input type="text" placeholder='Enter your Name' name="userName" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange} required />
                 </div>
 
                 <div className=" p-3">
@@ -47,12 +69,12 @@ const Signup: React.FC = () => {
 
                 <div className=" p-3">
                     <label htmlFor="phoneNumber" className="block text-gray-600">Phone Number</label>
-                    <input type="tel" placeholder='Enter your Number' name="phoneNumber" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange}  pattern="[0-9]*" required />
+                    <input type="tel" placeholder='Enter your Number' name="phone_number" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange} pattern="[0-9]*" required />
                 </div>
 
                 <div className=" p-3">
                     <label htmlFor="jobRole" className="block text-gray-600">Job Role</label>
-                    <input type="text" placeholder='Enter your role' name="jobRole" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange} required />
+                    <input type="text" placeholder='Enter your role' name="role" className="form-input p-2 block w-full border border-gray-700" onChange={handleChange} required />
                 </div>
 
                 <div className=" p-3">

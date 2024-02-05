@@ -4,14 +4,13 @@ import authRoutes from "./routes/auth";
 import adminRoutes from "./routes/admin";
 import userRoutes from "./routes/user";
 
-export default ()=>{
-    console.log("auth routes");
-    
-    const api = Router()
-    api.use('/auth', authRoutes);
-    api.use('/admin', adminRoutes);
-    api.use('/user', userRoutes);
+export default () => {
+  console.log("auth routes");
 
+  const api = Router();
+  api.use("/auth", authRoutes);
+  api.use("/admin", adminRoutes);
+  api.use("/user", userRoutes);
 
-    return api
-}
+  return api;
+};

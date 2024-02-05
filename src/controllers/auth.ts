@@ -13,10 +13,5 @@ export const signUp = (request: Request, response: Response) => {
     }).catch(err => response.status(404).send(err.message));
 };
 
-export const login = (request: Request, response: Response) => {
-  const { userName, password } = request.body;
-  console.log("login controllers", request.body);
-  const result = authServices.prepareLogin(userName, password);
 
-  response.send(result);
-};
+

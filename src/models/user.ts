@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const user_schema = new mongoose.Schema({
-//   employee_Id: {
-//     type: Number,
-//     required: true,
-//     unique: true,
-//   },
+  //   employee_Id: {
+  //     type: Number,
+  //     required: true,
+  //     unique: true,
+  //   },
   email: {
     type: String,
     required: true,
@@ -33,9 +33,6 @@ const user_schema = new mongoose.Schema({
   },
 });
 
-const userModel = mongoose.model("user_details", user_schema);
-
-console.log("user model", userModel);
-
+const userModel = mongoose.model("user", user_schema);
 
 export default userModel;

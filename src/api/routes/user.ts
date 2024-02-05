@@ -1,8 +1,7 @@
 import { Router } from "express";
 
-const userRoutes = Router()
+const userRoutes = Router();
 
-userRoutes.post('/list');
-// userRoutes.post('/singUp');
+userRoutes.post("/list");
 
 export default userRoutes;
