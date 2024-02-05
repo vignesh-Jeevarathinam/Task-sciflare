@@ -1,14 +1,14 @@
 const admin_credential = { userName: "vignesh", password: "Qwerty@123" };
 let user_details = [
   {
-    user_id: 3360,
+  
     userName: "siva",
     password: "sample@1",
     email: "siva@gmail.com",
     role: " software developer",
   },
   {
-    user_id: 7861,
+    
     userName: "vicky",
     password: "sample@1",
     email: "vicky@gmail.com",
@@ -24,7 +24,6 @@ export const prepareSignup = (
 ) => {
   console.log("services prepareSignup");
   const data = {
-    user_id: Math.floor(Math.random() * 9000) + 1000,
     userName,
     password,
     email,

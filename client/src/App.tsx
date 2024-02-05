@@ -1,7 +1,8 @@
-import Login from './components/login'
-// eslint-disable-next-line no-unused-vars
-import SignUp from './components/signUp';
+
 import {Routes, Route} from 'react-router-dom';
+import Login from './components/login';
+import SignUp from './components/signUp';
+import UserList from './components/list';
 
 function App() {
 
@@ -10,6 +11,8 @@ function App() {
     <Routes>
       <Route path='/' element={<Login/>} />
       <Route path='/signUp' element={<SignUp/>} />
+      <Route path='/List' element={<UserList/>} />
+
     </Routes>
     
     </>

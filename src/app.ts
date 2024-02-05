@@ -1,4 +1,5 @@
 import express, { Express, Response, Application, json } from "express";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { createServer } from "node:http";
 import cors from "cors";
@@ -12,15 +13,12 @@ function startServer() {
   const httpServer = createServer(app);
   const port = process.env.PORT || 8000;
 
-  // app.get('/', (req: Request, res: Response) => {
-  //   res.send('Welcome to Express & TypeScript Server');
-  // });
   app.use(cors());
-  app.use(json())
+  app.use(json());
 
-  app.use('/api', apiRoutes());
+  app.use("/api", apiRoutes());
 
-   httpServer
+  const server =httpServer
     .listen(port, () => {
       console.log(`Server is started at http://localhost:${port}`);
     })
@@ -29,6 +27,14 @@ function startServer() {
       throw error;
     });
 
+  mongoose
+    .connect(`mongodb://localhost//:27017/taskDemo`)
+    .then(() => {
+      console.log("Database connected Successfully ::::: ");
+    })
+    .catch((err) => console.log("Error connecting to DB", err));
+
+  server.setTimeout(10000);
 }
 
 startServer();
