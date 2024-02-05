@@ -1,57 +1,52 @@
-const admin_credential = { userName: "vignesh", password: "Qwerty@123" };
-let user_details = [
-  {
-  
-    userName: "siva",
-    password: "sample@1",
-    email: "siva@gmail.com",
-    role: " software developer",
-  },
-  {
-    
-    userName: "vicky",
-    password: "sample@1",
-    email: "vicky@gmail.com",
-    role: " software developer",
-  },
-];
+import userModel from "../models/user";
+import bcrypt from "bcryptjs/dist/bcrypt";
+// import * as faker from 'faker';
 
-export const prepareSignup = (
+const admin_credential = { userName: "Sciflare", password: "Qwerty@123" };
+
+export const prepareSignup = async (
   userName: string,
   password: string,
   email: string,
-  role: string
+  role: string,
+  phone_number: number
 ) => {
-  console.log("services prepareSignup");
-  const data = {
-    userName,
-    password,
-    email,
-    role,
-  };
+  try {
+    console.log("services prepareSignup");
+    let user = new userModel({
+      // employee_Id: faker.datatype.number({min:1, max: 200}),
+      email: email,
+      username: userName,
+      password: bcrypt.hashSync(password,10),
+      role: role,
+      phone_number: phone_number
+    })
 
-  user_details.push(data);
-  console.log("usr details", user_details);
+   const user_Data= await user.save();
 
-  return { status: true, message: "user added successfully" };
+console.log("user data",password, bcrypt.hashSync( password,10 ),user_Data);
+
+    return { status: true, message: "user added successfully" };
+  } catch (error) {
+    console.log("ERROR in prepareSignup", error.message);
+  }
 };
 
 export const prepareLogin = (userName: string, password: string) => {
   console.log("services prepareLogin");
 
-  const [result] = user_details.map((ele, i) => {
-    if (
-      user_details.some(
-        (item) => item.userName === userName && item.password === password
-      )
-    ) {
-      return { status: true, message: "valid" };
-    } else {
-      return { status: false, message: "INvalid" };
-    }
-  });
+  // const [result] = user_details.map((ele, i) => {
+  //   if (
+  //     user_details.some(
+  //       (item) => item.userName === userName && item.password === password
+  //     )
+  //   ) {
+  //     return { status: true, message: "valid" };
+  //   } else {
+  //     return { status: false, message: "INvalid" };
+  //   }
+  // });
 
-  return result;
+  // return result;
 };
 
-export { user_details };
