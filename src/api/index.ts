@@ -5,7 +5,6 @@ import adminRoutes from "./routes/admin";
 import userRoutes from "./routes/user";
 
 export default () => {
-  console.log("auth routes");
 
   const api = Router();
   api.use("/auth", authRoutes);

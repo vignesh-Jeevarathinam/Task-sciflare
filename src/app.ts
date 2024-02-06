@@ -4,9 +4,12 @@ import dotenv from "dotenv";
 import { createServer } from "node:http";
 import cors from "cors";
 import apiRoutes from "./api";
+import passport, { use } from "passport";
 import session from "express-session";
-import passport from "passport";
-import passportConfig from "./utils/passport";
+import MongoStore from "connect-mongo";
+import flash from "connect-flash/lib/flash";
+import { Strategy as LocalStrategy } from "passport-local";
+import userModel from "./models/user";
 
 //For env File
 dotenv.config();
@@ -24,13 +27,15 @@ function startServer() {
       secret: "sciflare",
       resave: false,
       saveUninitialized: false,
+      cookie: { secure: true },
     })
   );
 
+  passport.use(new LocalStrategy(userModel.authenticate()));
+  passport.serializeUser(userModel.serializeUser());
+  passport.deserializeUser(userModel.deserializeUser());
   app.use(passport.initialize());
   app.use(passport.session());
-
-  passportConfig();
 
   app.use("/api", apiRoutes());
 

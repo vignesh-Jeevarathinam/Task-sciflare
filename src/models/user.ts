@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import passportLocalMongoose from 'passport-local-mongoose';
+
 
 const user_schema = new mongoose.Schema({
   //   employee_Id: {
@@ -13,6 +15,7 @@ const user_schema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -32,6 +35,8 @@ const user_schema = new mongoose.Schema({
     default: Date.now(),
   },
 });
+
+user_schema.plugin(passportLocalMongoose);
 
 const userModel = mongoose.model("user", user_schema);
 

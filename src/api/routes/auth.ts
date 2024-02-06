@@ -21,5 +21,6 @@ authRoutes.post("/login", function (req, res, next) {
     }
   })(req, res, next);
 });
+// authRoutes.post('/login', passport.authenticate('local', {successRedirect: '/admin/list', failureRedirect: '/auth/login', failureFlash: true}))
 
 export default authRoutes;
